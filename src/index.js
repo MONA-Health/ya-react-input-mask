@@ -260,6 +260,10 @@ const InputMask = forwardRef(function InputMask(props, forwardedRef) {
   });
 
   const refCallback = node => {
+    // handle unmount
+    if (node === null) {
+      return;
+    }
     inputRef.current = node;
 
     // if a ref callback is passed to InputMask

@@ -8,7 +8,7 @@ export const CONTROLLED_PROPS = [
   "value"
 ];
 
-export const defaultFormatChars = {
+export const defaultFormatChars: { [char: string]: RegExp } = {
   "9": /[0-9]/,
   a: /[A-Za-z]/,
   "*": /[A-Za-z0-9]/

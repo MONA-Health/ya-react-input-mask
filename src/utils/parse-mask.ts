@@ -1,7 +1,13 @@
 import { defaultFormatChars } from "../constants";
 
-export default function({ mask, maskPlaceholder }) {
-  const permanents = [];
+export default function ({
+  mask,
+  maskPlaceholder,
+}: {
+  mask: any;
+  maskPlaceholder: any;
+}) {
+  const permanents: number[] = [];
 
   if (!mask) {
     return {
@@ -9,18 +15,18 @@ export default function({ mask, maskPlaceholder }) {
       mask: null,
       prefix: null,
       lastEditablePosition: null,
-      permanents: []
+      permanents: [],
     };
   }
 
   if (typeof mask === "string") {
     let isPermanent = false;
     let parsedMaskString = "";
-    mask.split("").forEach(character => {
+    mask.split("").forEach((character) => {
       if (!isPermanent && character === "\\") {
         isPermanent = true;
       } else {
-        if (isPermanent || !defaultFormatChars[character]) {
+        if (isPermanent || !(defaultFormatChars[character] as RegExp)) {
           permanents.push(parsedMaskString.length);
         }
         parsedMaskString += character;
@@ -28,14 +34,16 @@ export default function({ mask, maskPlaceholder }) {
       }
     });
 
-    mask = parsedMaskString.split("").map((character, index) => {
-      if (permanents.indexOf(index) === -1) {
-        return defaultFormatChars[character];
-      }
-      return character;
-    });
+    mask = parsedMaskString
+      .split("")
+      .map((character: string, index: number) => {
+        if (permanents.indexOf(index) === -1) {
+          return defaultFormatChars[character];
+        }
+        return character;
+      });
   } else {
-    mask.forEach((character, index) => {
+    mask.forEach((character: any, index: number) => {
       if (typeof character === "string") {
         permanents.push(index);
       }
@@ -44,26 +52,26 @@ export default function({ mask, maskPlaceholder }) {
 
   if (maskPlaceholder) {
     if (maskPlaceholder.length === 1) {
-      maskPlaceholder = mask.map((character, index) => {
+      maskPlaceholder = mask.map((character: any, index: number) => {
         if (permanents.indexOf(index) !== -1) {
           return character;
         }
         return maskPlaceholder;
       });
     } else {
-      maskPlaceholder = maskPlaceholder.split("");
+      maskPlaceholder = (maskPlaceholder as string).split("");
     }
 
-    permanents.forEach(position => {
-      maskPlaceholder[position] = mask[position];
+    permanents.forEach((position) => {
+      (maskPlaceholder as string[])[position] = mask[position];
     });
 
-    maskPlaceholder = maskPlaceholder.join("");
+    maskPlaceholder = (maskPlaceholder as string[]).join("");
   }
 
   const prefix = permanents
     .filter((position, index) => position === index)
-    .map(position => mask[position])
+    .map((position) => mask[position])
     .join("");
 
   let lastEditablePosition = mask.length - 1;
@@ -76,6 +84,6 @@ export default function({ mask, maskPlaceholder }) {
     prefix,
     mask,
     lastEditablePosition,
-    permanents
+    permanents,
   };
 }

@@ -3,14 +3,14 @@ import warning from "warning";
 
 import { CONTROLLED_PROPS } from "./constants";
 
-export function validateMaxLength(props) {
+export function validateMaxLength(props: any) {
   warning(
     !props.maxLength || !props.mask,
     "react-input-mask: maxLength property shouldn't be passed to the masked input. It breaks masking and unnecessary because length is limited by the mask length."
   );
 }
 
-export function validateMaskPlaceholder(props) {
+export function validateMaskPlaceholder(props: any) {
   const { mask, maskPlaceholder } = props;
 
   invariant(
@@ -24,9 +24,9 @@ export function validateMaskPlaceholder(props) {
   );
 }
 
-export function validateChildren(props, inputElement) {
+export function validateChildren(props: any, inputElement: any) {
   const conflictProps = CONTROLLED_PROPS.filter(
-    propId =>
+    (propId) =>
       inputElement.props[propId] != null &&
       inputElement.props[propId] !== props[propId]
   );

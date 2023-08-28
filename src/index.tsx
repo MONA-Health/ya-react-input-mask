@@ -13,7 +13,7 @@ import { isInputFocused } from "./utils/input";
 import { isFunction, toString, getElementDocument } from "./utils/helpers";
 import MaskUtils from "./utils/mask";
 
-const InputMask = forwardRef(function InputMask(props, forwardedRef) {
+const InputMask = forwardRef(function InputMask(props: any, forwardedRef: any) {
   const {
     alwaysShowMask,
     children,
@@ -44,7 +44,7 @@ const InputMask = forwardRef(function InputMask(props, forwardedRef) {
   } = useInputState(initialValue, isMasked);
   const getInputElement = useInputElement(inputRef);
 
-  function onChange(event) {
+  function onChange(event: any) {
     const currentState = getInputState();
     const previousState = getLastInputState();
     let newInputState = maskUtils.processChange(currentState, previousState);
@@ -64,7 +64,7 @@ const InputMask = forwardRef(function InputMask(props, forwardedRef) {
     }
   }
 
-  function onFocus(event) {
+  function onFocus(event: any) {
     // If autoFocus property is set, focus event fires before the ref handler gets called
     inputRef.current = event.target;
 
@@ -105,7 +105,7 @@ const InputMask = forwardRef(function InputMask(props, forwardedRef) {
     }
   }
 
-  function onBlur(event) {
+  function onBlur(event: any) {
     const currentValue = getInputState().value;
     const lastValue = getLastInputState().value;
 
@@ -140,7 +140,7 @@ const InputMask = forwardRef(function InputMask(props, forwardedRef) {
   // position on focus, so we have to restore it in that case
   //
   // https://github.com/sanniassin/react-input-mask/issues/108
-  function onMouseDown(event) {
+  function onMouseDown(event: any) {
     const input = getInputElement();
     if (!input) {
       return;
@@ -153,7 +153,7 @@ const InputMask = forwardRef(function InputMask(props, forwardedRef) {
       const mouseDownY = event.clientY;
       const mouseDownTime = new Date().getTime();
 
-      const mouseUpHandler = mouseUpEvent => {
+      const mouseUpHandler = (mouseUpEvent: any) => {
         inputDocument.removeEventListener("mouseup", mouseUpHandler);
 
         if (!isInputFocused(input)) {
@@ -265,7 +265,7 @@ const InputMask = forwardRef(function InputMask(props, forwardedRef) {
     setInputState(newInputState);
   });
 
-  const refCallback = node => {
+  const refCallback = (node: HTMLInputElement) => {
     inputRef.current = node;
 
     // if a ref callback is passed to InputMask

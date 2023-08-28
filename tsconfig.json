@@ -8,8 +8,12 @@
         "module": "commonjs",
         "jsx": "react",
         "strict": true,
+        "sourceMap": true,
         "esModuleInterop": true,
         "declaration": true,
-        "outDir": "dist"
+        "outDir": "dist",
+        "types": [
+            "mocha"
+        ]
     }
 }

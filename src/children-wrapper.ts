@@ -1,7 +1,7 @@
-import React, { ReactElement } from "react";
+import * as React from "react";
 
 interface Props {
-  children: ReactElement;
+  children: React.ReactElement;
 }
 
 export default class InputMaskChildrenWrapper extends React.Component<Props> {

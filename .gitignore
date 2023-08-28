@@ -1,6 +1,7 @@
 node_modules
 lib
 dist
+coverage
 npm-debug.log
 browserStack.json
 Session.vim

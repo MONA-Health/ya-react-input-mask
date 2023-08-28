@@ -1,5 +1,5 @@
-import React, { useLayoutEffect, forwardRef } from "react";
-import PropTypes from "prop-types";
+import * as React from "react";
+import * as PropTypes from "prop-types";
 
 import { useInputState, useInputElement, usePrevious } from "./hooks";
 import {
@@ -13,7 +13,7 @@ import { isInputFocused } from "./utils/input";
 import { isFunction, toString, getElementDocument } from "./utils/helpers";
 import MaskUtils from "./utils/mask";
 
-const InputMask = forwardRef((props: any, forwardedRef: any) => {
+const InputMask = React.forwardRef((props: any, forwardedRef: any) => {
   const {
     alwaysShowMask,
     children,
@@ -211,7 +211,7 @@ const InputMask = forwardRef((props: any, forwardedRef: any) => {
   const lastSelection = lastState.selection;
   const lastValue = lastState.value;
 
-  useLayoutEffect(() => {
+  React.useLayoutEffect(() => {
     if (!isMasked) {
       return;
     }

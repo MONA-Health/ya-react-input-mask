@@ -18,13 +18,13 @@ module.exports = (config) => {
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ["mocha"],
+    frameworks: ["mocha", "karma-typescript"],
 
     // list of files / patterns to load in the browser
     files: [
       "node_modules/@babel/polyfill/dist/polyfill.min.js",
       "node_modules/console-polyfill/index.js",
-      "tests/input/*.js",
+      "tests/input/*.tsx",
     ],
 
     // list of files to exclude
@@ -33,13 +33,13 @@ module.exports = (config) => {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      "tests/input/*.js": ["webpack"],
+      "tests/input/*.tsx": ["karma-typescript"],
     },
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ["progress"],
+    reporters: ["progress", "karma-typescript"],
 
     // web server port
     port: 9876,
@@ -71,6 +71,19 @@ module.exports = (config) => {
         modules: ["node_modules", "."],
       },
       module: require("./webpack.config").module,
+    },
+
+    karmaTypescriptConfig: {
+      compilerOptions: {
+        declaration: true,
+        esModuleInterop: true,
+        jsx: "react",
+        module: "commonjs",
+        sourceMap: true,
+        strict: true,
+        target: "es5",
+      },
+      exclude: ["node_modules"],
     },
   });
 };

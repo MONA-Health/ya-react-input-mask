@@ -76,7 +76,7 @@
     "webpack-cli": "^3.3.10",
     "webpack-dev-server": "^3.10.1"
   },
-  "main": "index.ts",
+  "main": "index.js",
   "files": [
     "lib",
     "dist"
@@ -94,8 +94,8 @@
     "build": "tsc -p tsconfig.json",
     "start": "cross-env BABEL_ENV=test NODE_ENV=development webpack-dev-server",
     "prepare": "npm run lint && npm test && npm run clean && npm run build",
-    "lint": "eslint ./src ./tests ./*.ts",
-    "lint-fix": "eslint --fix ./src ./tests ./*.ts",
+    "lint": "eslint ./src ./tests ./*.js",
+    "lint-fix": "eslint --fix ./src ./tests ./*.js",
     "test": "npm run build && npm run test:input && npm run test:server-render && npm run test:build",
     "test:input": "cross-env NODE_ENV=test BABEL_ENV=test karma start",
     "test:server-render": "cross-env BABEL_ENV=test mocha --require @babel/register ./tests/server-render",

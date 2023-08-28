@@ -1,7 +1,7 @@
 export function setInputSelection(
   input: HTMLInputElement,
   start: number | null,
-  end?: number | null
+  end?: number | null,
 ) {
   if (end === undefined) {
     end = start;

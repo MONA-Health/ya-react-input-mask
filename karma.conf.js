@@ -1,11 +1,12 @@
-module.exports = config => {
+/* eslint-disable @typescript-eslint/no-var-requires */
+module.exports = (config) => {
   config.set({
     // define browsers
     customLaunchers: {
       ChromeHeadlessNoSandbox: {
         base: "ChromeHeadless",
-        flags: ["--no-sandbox"]
-      }
+        flags: ["--no-sandbox"],
+      },
     },
 
     // start these browsers
@@ -23,7 +24,7 @@ module.exports = config => {
     files: [
       "node_modules/@babel/polyfill/dist/polyfill.min.js",
       "node_modules/console-polyfill/index.js",
-      "tests/input/*.js"
+      "tests/input/*.js",
     ],
 
     // list of files to exclude
@@ -32,7 +33,7 @@ module.exports = config => {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      "tests/input/*.js": ["webpack"]
+      "tests/input/*.js": ["webpack"],
     },
 
     // test results reporter to use
@@ -60,16 +61,16 @@ module.exports = config => {
     webpack: {
       devtool: false,
       performance: {
-        hints: false
+        hints: false,
       },
       mode: "development",
       output: {
-        filename: "[name].js"
+        filename: "[name].js",
       },
       resolve: {
-        modules: ["node_modules", "."]
+        modules: ["node_modules", "."],
       },
-      module: require("./webpack.config").module
-    }
+      module: require("./webpack.config").module,
+    },
   });
 };

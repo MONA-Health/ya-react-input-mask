@@ -1,6 +1,6 @@
 import { defaultFormatChars } from "../constants";
 
-export default function ({
+export default function parseMask({
   mask,
   maskPlaceholder,
 }: {

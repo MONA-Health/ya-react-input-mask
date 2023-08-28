@@ -21,7 +21,7 @@ export function useInputElement(inputRef: any) {
     }
     if (!input) {
       throw new Error(
-        "react-input-mask: inputComponent doesn't contain input node"
+        "react-input-mask: inputComponent doesn't contain input node",
       );
     }
     return input;
@@ -64,9 +64,7 @@ function useSelection(inputRef: any, isMasked: boolean) {
     const input = getInputElement();
     return getInputSelection(input);
   }, [getInputElement]);
-  const getLastSelection = useCallback(() => {
-    return selectionRef.current;
-  }, []);
+  const getLastSelection = useCallback(() => selectionRef.current, []);
   const setSelection = useCallback(
     (selection: { start: number | null; end: number | null | undefined }) => {
       const input = getInputElement();
@@ -79,7 +77,7 @@ function useSelection(inputRef: any, isMasked: boolean) {
       // Use actual selection in case the requested one was out of range
       selectionRef.current = getSelection();
     },
-    [getInputElement, getSelection]
+    [getInputElement, getSelection],
   );
   const selectionLoop = useCallback(() => {
     selectionRef.current = getSelection();
@@ -111,9 +109,7 @@ function useValue(inputRef: any, initialValue: any) {
     const input = getInputElement();
     return input.value;
   }, [getInputElement]);
-  const getLastValue = useCallback(() => {
-    return valueRef.current;
-  }, []);
+  const getLastValue = useCallback(() => valueRef.current, []);
   const setValue = useCallback(
     (newValue: any) => {
       valueRef.current = newValue;
@@ -122,7 +118,7 @@ function useValue(inputRef: any, initialValue: any) {
         input.value = newValue;
       }
     },
-    [getInputElement]
+    [getInputElement],
   );
   return {
     getValue,
@@ -135,7 +131,7 @@ export function useInputState(initialValue: any, isMasked: boolean) {
   const inputRef = useRef<any>();
   const { getSelection, getLastSelection, setSelection } = useSelection(
     inputRef,
-    isMasked
+    isMasked,
   );
   const { getValue, getLastValue, setValue } = useValue(inputRef, initialValue);
   function getLastInputState() {

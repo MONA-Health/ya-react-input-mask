@@ -5,11 +5,11 @@ export const CONTROLLED_PROPS = [
   "onFocus",
   "onMouseDown",
   "readOnly",
-  "value"
+  "value",
 ];
 
 export const defaultFormatChars: { [char: string]: RegExp } = {
   "9": /[0-9]/,
   a: /[A-Za-z]/,
-  "*": /[A-Za-z0-9]/
+  "*": /[A-Za-z0-9]/,
 };

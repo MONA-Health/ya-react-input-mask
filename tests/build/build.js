@@ -11,13 +11,14 @@ const rootDir = path.resolve(__dirname, "../..");
 describe("CommonJS build", () => {
   const libPath = path.resolve(
     rootDir,
-    "lib/react-input-mask.production.min.js"
+    "lib/react-input-mask.production.min.js",
   );
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
   const InputElement = require(libPath);
 
   it("should return a string", () => {
     const result = ReactDOMServer.renderToString(
-      <InputElement value="some" mask="799" />
+      <InputElement value="some" mask="799" />,
     );
     expect(typeof result).to.equal("string");
   });
@@ -25,11 +26,12 @@ describe("CommonJS build", () => {
 
 describe("UMD build", () => {
   const libPath = path.resolve(rootDir, "dist/react-input-mask.min.js");
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
   const InputElement = require(libPath);
 
   it("should return a string", () => {
     const result = ReactDOMServer.renderToString(
-      <InputElement value="some" mask="799" />
+      <InputElement value="some" mask="799" />,
     );
     expect(typeof result).to.equal("string");
   });

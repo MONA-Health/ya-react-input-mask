@@ -4,20 +4,21 @@ const ERROR = 2;
 
 module.exports = {
   // parser: "babel-eslint",
+  parser: "@typescript-eslint/parser",
   parserOptions: {
     ecmaVersion: 2018,
+    project: ["./tsconfig.json"]
   },
   extends: [
     "airbnb",
     "airbnb-typescript",
     "prettier",
-    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended"
   ],
   plugins: ["prettier", "react-hooks", "@typescript-eslint"],
-  parser: "@typescript-eslint/parser",
   root: true,
   env: {
-    browser: true,
+    browser: true
   },
   rules: {
     "react/jsx-filename-extension": OFF,
@@ -35,9 +36,10 @@ module.exports = {
     "prefer-const": [
       ERROR,
       {
-        destructuring: "all",
-      },
+        destructuring: "all"
+      }
     ],
     "prettier/prettier": ERROR,
-  },
+    "@typescript-eslint/no-explicit-any": OFF
+  }
 };

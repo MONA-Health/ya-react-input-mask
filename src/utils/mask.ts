@@ -18,6 +18,7 @@ export default class MaskUtils {
         lastEditablePosition: number;
         permanents: number[];
       };
+
   constructor(options: { mask: any; maskPlaceholder: any }) {
     this.maskOptions = parseMask(options);
   }
@@ -63,14 +64,14 @@ export default class MaskUtils {
     return position < mask.length && permanents.indexOf(position) === -1;
   };
 
-  isValueEmpty = (value: string) => {
-    return value.split("").every((character, position) => {
-      return (
-        !this.isPositionEditable(position) ||
-        !this.isCharacterFillingPosition(character, position)
+  isValueEmpty = (value: string) =>
+    value
+      .split("")
+      .every(
+        (character, position) =>
+          !this.isPositionEditable(position) ||
+          !this.isCharacterFillingPosition(character, position),
       );
-    });
-  };
 
   isValueFilled = (value: string) => {
     if (this.maskOptions.lastEditablePosition === null) {
@@ -95,12 +96,9 @@ export default class MaskUtils {
     const characters = value.split("");
     const lastFilledIndex = findLastIndex(
       characters,
-      (character: string, position: number) => {
-        return (
-          this.isPositionEditable(position) &&
-          this.isCharacterFillingPosition(character, position)
-        );
-      }
+      (character: string, position: number) =>
+        this.isPositionEditable(position) &&
+        this.isCharacterFillingPosition(character, position),
     );
     return lastFilledIndex + 1;
   };
@@ -108,10 +106,9 @@ export default class MaskUtils {
   getStringFillingLengthAtPosition = (string: string, position: number) => {
     const characters = string.split("");
     const insertedValue = characters.reduce(
-      (value, character) => {
-        return this.insertCharacterAtPosition(value, character, value.length);
-      },
-      repeat(" ", position)
+      (value, character) =>
+        this.insertCharacterAtPosition(value, character, value.length),
+      repeat(" ", position),
     );
 
     return insertedValue.length - position;
@@ -207,7 +204,7 @@ export default class MaskUtils {
   insertCharacterAtPosition = (
     value: string | any[],
     character: string,
-    position: number
+    position: number,
   ): any => {
     const { mask, maskPlaceholder } = this.maskOptions;
     if (!mask) {
@@ -241,7 +238,7 @@ export default class MaskUtils {
   insertStringAtPosition = (
     value: string,
     string: string,
-    position: number | null
+    position: number | null,
   ) => {
     const { mask, maskPlaceholder } = this.maskOptions;
     if (!mask) {
@@ -259,10 +256,8 @@ export default class MaskUtils {
     const valueAfter = value.slice(position);
 
     value = characters.reduce(
-      (value, character) => {
-        return this.insertCharacterAtPosition(value, character, value.length);
-      },
-      value.slice(0, position)
+      (v, character) => this.insertCharacterAtPosition(v, character, v.length),
+      value.slice(0, position),
     );
 
     if (isFixedLength) {
@@ -272,22 +267,18 @@ export default class MaskUtils {
     } else {
       const editableCharactersAfter = valueAfter
         .split("")
-        .filter((character, i) => {
-          return this.isPositionEditable(position + i);
-        });
-      value = editableCharactersAfter.reduce((value, character) => {
-        const nextEditablePosition = this.getRightEditablePosition(
-          value.length
-        );
+        .filter((character, i) => this.isPositionEditable(position + i));
+      value = editableCharactersAfter.reduce((v, character) => {
+        const nextEditablePosition = this.getRightEditablePosition(v.length);
         if (nextEditablePosition === null) {
-          return value;
+          return v;
         }
 
-        if (!this.isPositionEditable(value.length)) {
-          value += mask.slice(value.length, nextEditablePosition).join("");
+        if (!this.isPositionEditable(v.length)) {
+          v += mask.slice(v.length, nextEditablePosition).join("");
         }
 
-        return this.insertCharacterAtPosition(value, character, value.length);
+        return this.insertCharacterAtPosition(v, character, v.length);
       }, value);
     }
 
@@ -296,7 +287,7 @@ export default class MaskUtils {
 
   processChange = (
     currentState: { value: string; selection: any },
-    previousState: { value: string; selection: any }
+    previousState: { value: string; selection: any },
   ) => {
     const { mask, prefix, lastEditablePosition } = this.maskOptions;
     const { value, selection } = currentState;
@@ -308,14 +299,14 @@ export default class MaskUtils {
     let removedLength = 0;
     let cursorPosition: number | null = Math.min(
       previousSelection.start,
-      selection.start
+      selection.start,
     );
 
     if (selection.end > previousSelection.start) {
       enteredString = newValue.slice(previousSelection.start, selection.end);
       formattedEnteredStringLength = this.getStringFillingLengthAtPosition(
         enteredString,
-        cursorPosition
+        cursorPosition,
       );
       if (!formattedEnteredStringLength) {
         removedLength = 0;
@@ -341,7 +332,7 @@ export default class MaskUtils {
     newValue = this.insertStringAtPosition(
       newValue,
       enteredString,
-      cursorPosition
+      cursorPosition,
     );
 
     newValue = this.formatValue(newValue);

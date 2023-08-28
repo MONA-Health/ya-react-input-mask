@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
@@ -7,14 +8,14 @@ module.exports = {
   devtool: "cheap-module-source-map",
   context: srcDir,
   performance: {
-    hints: false
+    hints: false,
   },
   entry: "./index.js",
   output: {
-    filename: "[name].js"
+    filename: "[name].js",
   },
   resolve: {
-    modules: ["node_modules", "."]
+    modules: ["node_modules", "."],
   },
   module: {
     rules: [
@@ -25,22 +26,22 @@ module.exports = {
           options: {
             presets: [
               ["@babel/preset-env", { targets: "Chrome > 70" }],
-              "@babel/preset-react"
-            ]
-          }
+              "@babel/preset-react",
+            ],
+          },
         },
-        exclude: /node_modules/
-      }
-    ]
+        exclude: /node_modules/,
+      },
+    ],
   },
   devServer: {
     host: "0.0.0.0",
     port: 9000,
-    disableHostCheck: true
+    disableHostCheck: true,
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: "index.html"
-    })
-  ]
+      template: "index.html",
+    }),
+  ],
 };
